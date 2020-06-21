@@ -129,6 +129,19 @@ class Practice6: ParserTestCase {
 
     // 6-6
     func testBuilder() {
+        let source = """
+            func square(_ x: Double) -> Double {
+                return x * x
+            }
+        """
+        
+        let engine = Engine()
+        try! engine.load(from: source)
+        typealias FunctionType = @convention(c) (Double) -> Double
+        try! engine.run("square", of: FunctionType.self) { square in
+//            print(square(2))
+        }
+        
         XCTAssertTrue(fileCheckOutput(of: .stderr, withPrefixes: ["FunctionWithArgument"]) {
             // FunctionWithArgument: ; ModuleID = 'main'
             // FunctionWithArgument-NEXT: source_filename = "main"
@@ -143,10 +156,8 @@ class Practice6: ParserTestCase {
                                             lhs: VariableNode(identifier: "x"),
                                             rhs: VariableNode(identifier: "x"))
             let returnNode = ReturnNode(body: body)
-            build([
-                FunctionNode(name: "square", arguments: [.init(label: nil, variableName: "x")], returnType: .double, body: returnNode)
-                ],
-                  context: buildContext)
+            let node = FunctionNode(name: "square", arguments: [.init(label: nil, variableName: "x")], returnType: .double, body: returnNode)
+            build([node], context: buildContext)
             buildContext.dump()
         })
     }

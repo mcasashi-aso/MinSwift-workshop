@@ -29,12 +29,12 @@ final class Practice7: ParserTestCase {
     // 7-2
     func testParsingIfElse() {
         load("""
-    if a < 10 {
-        foo(a: a)
-    } else {
-        foo(a: a + 10)
-    }
-    """)
+            if a < 10 {
+                foo(a: a)
+            } else {
+                foo(a: a + 10)
+            }
+        """)
 
         let node = parser.parseIfElse()
 

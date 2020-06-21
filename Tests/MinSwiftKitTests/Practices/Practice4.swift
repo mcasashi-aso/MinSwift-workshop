@@ -49,10 +49,11 @@ func calculate() -> Double {
     // 4-3
     func testFunctionWithArgument() {
         load("""
-func square(a: Double) -> Double {
-    return a * a
-}
-""")
+            func square(a: Double) -> Double {
+                return a * a
+            }
+        """)
+        
         let node = parser.parseFunctionDefinition()
         XCTAssertTrue(node is FunctionNode)
 
@@ -89,7 +90,7 @@ func calculate(a: Double, b: Double) -> Double {
     }
 
     // If you have a rest time, try them.
-    func _testParsingArgumentWithLabel() {
+    func testParsingArgumentWithLabel() {
         load("label a: Double")
 
         let argument = parser.parseFunctionDefinitionArgument()
@@ -97,7 +98,7 @@ func calculate(a: Double, b: Double) -> Double {
         XCTAssertEqual(argument.variableName, "a")
     }
 
-    func _testParsingArgumentWithWildcard() {
+    func testParsingArgumentWithWildcard() {
         load("_ a: Double")
 
         let argument = parser.parseFunctionDefinitionArgument()

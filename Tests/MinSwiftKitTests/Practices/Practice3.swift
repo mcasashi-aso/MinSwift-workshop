@@ -106,6 +106,15 @@ class Practice3: ParserTestCase {
     func testComplexExpression() {
         load("(a - 20) * 10 / b")
         // please parse on yourself because I'm tired 😛
+        // lhs:
+        //     lhs:
+        //         lhs: a
+        //         ope: -
+        //         rhs: 20
+        //     ope: *
+        //     rhs: 10
+        // ope: /
+        // rhs: b
 
         let expression = parser.parseExpression()
         XCTAssertTrue(expression is BinaryExpressionNode)
